@@ -1,0 +1,162 @@
+
+<!doctype html>
+<html>
+<head>
+
+    <title>Form Validation</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script type = "text/javascript" src = "jquery.min.js"></script>  
+    
+    <style type="text/css">
+        
+
+    
+    body {
+background-image: url("DataCenter.jpg");
+background-repeat: no-repeat;
+background-size: 100%;
+
+   
+    ;
+        } 
+        
+    h1 {
+        font-weight: bold;
+        color: greenyellow;
+    }
+        
+        #container {
+            width: 500px;
+            margin: 0 auto; /* Recall this centers the div on the page. */
+            font-family: sans-serif;
+            font-size: 1.1em;
+        }
+        
+        input {
+            width: 300px;
+            padding: 5px;
+            border-radius: 10px; 
+            font-size: 1.1em;
+            border: 1px solid grey;
+            margin-bottom: 10px;
+        }
+        
+        label {
+            width: 175px; 
+            float: left;
+            padding-top: 10px;
+        }
+        
+        #button {
+            width:75px;   
+            font-size: .8em;
+            margin-left: 175px;
+         
+        }
+        
+        #error {
+            color: red;
+            font-size: 1.1em;
+            margin: 20px;
+        }
+        
+        #headercolor {
+            
+            color: dodgerblue;
+            
+        }
+        
+        #button {
+            
+            background-color: dodgerblue;
+            
+        }
+        
+    </style>
+    
+</head>
+
+<body>
+    
+    <div id = "container">
+        
+        <h1 id = "headercolor"> Please Complete the Form </h1>
+        <div id = "error"></div>
+        
+        <form id = "validationform">
+        
+            
+            <label id = "headercolor" for = "First Name">First Name:</label> <!-- see note on bottom for the label tag -->
+            <input name = "name" type="text" placeholder="Enter your First Name" required />
+            
+             <label id = "headercolor" for = "Last Name">Last Name:</label> <!-- see note on bottom for the label tag -->
+            <input name = "name" type="text" placeholder="Enter your Last Name" required/>
+    
+            <label id = "headercolor" for = "Email">Email:</label> <!-- see note on bottom for the label tag -->
+            <input name = "email" id = "email" placeholder="name@email.com" type = "email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  required/>
+        
+            <label id = "headercolor" for = "Phone">Phone Number:</label> 
+            <input name = "phone" id = "phone" placeholder="xxx-xxx-xxxx" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" required />
+        
+            <label id = "headercolor" for = "Zip">Zip:</label>
+            <input name ="zip" id = "zip" type="zip" placeholder="Enter your Zip Code" type="text" pattern="(\d{5})?" required />
+            <label id = "headercolor" for = "SocialSecurity">Social Security:</label>
+            <input name ="ss" id = "ss" type="text" placeholder="xxx-xx-xxxx" pattern="^\d{3}-\d{2}-\d{4}$" required />
+            
+            <label id = "headercolor" for = "CreditCard">Credit Card:</label>
+            <input name ="CreditCard" id = "CreditCard" placeholder="xxxxxxxxxxxxxxxx" type="text" pattern="[0-9]{16}" required />
+            <!-- setting type to "password" hides the user input -->
+        
+            <input id = "button" type = "submit" value = "Submit">
+          
+        </form>
+        
+    </div>
+    
+    <script>
+        
+        $("#validationform").submit(function(event) {
+            
+            var errorMessage = "";
+        
+            event.preventDefault(); //Prevents form from being submitted.
+            
+            /*
+            function isValidEmailAddress(emailAddress) {
+    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    return pattern.test(emailAddress);
+};
+
+*/
+           /*
+            if(!isValidEmailAddress($("#email").val())) {
+                errorMessage = "Please enter a valid email address.<br />";
+            }
+            
+        
+            if(!$.isNumeric($("#zip").val())) {
+                errorMessage = errorMessage + "Please enter a valid phone number.<br />";
+            }
+            
+            if(!$.isNumeric($("#CreditCard").val())) {
+                errorMessage = errorMessage + " Please enter yoru credit card number";
+            }
+            */
+            
+            if(errorMessage == "") {
+                alert("The form was filled out correctly.");
+            }
+            
+            $("#error").html(errorMessage);
+            
+        });
+        
+    </script>
+
+</body>
+</html>
+   
